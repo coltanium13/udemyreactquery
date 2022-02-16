@@ -11,6 +11,7 @@ function queryErrorHandler(error: unknown): void {
   const title =
     error instanceof Error ? error.message : 'error connecting to server';
 
+  console.log('in error handler');
   // prevent duplicate toasts
   // had to comment out this line becuase its not letting the toast show on the Staff page
   //   toast.closeAll();
