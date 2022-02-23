@@ -3,11 +3,9 @@ import axios, { AxiosRequestConfig } from 'axios';
 import { User } from '../../../shared/types';
 import { baseUrl } from './constants';
 
-interface jwtHeader {
-  Authorization?: string;
-}
-
-export function getJWTHeader(user: User): jwtHeader {
+// had to change return type from jwtHeader to Record<string, string> which is showin in the git hub completed-apps folder. not the base one.
+export function getJWTHeader(user: User): Record<string, string> {
+  console.log('in getJWTHeaders');
   return { Authorization: `Bearer ${user.token}` };
 }
 
