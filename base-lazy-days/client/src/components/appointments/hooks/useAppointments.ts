@@ -72,7 +72,9 @@ export function useAppointments(): UseAppointments {
   const { user } = useUser();
 
   // data is the data returned by the useQuery function
-  const selectFn = useCallback((data) => getAvailableAppointments(data), []);
+  const selectFn = useCallback((data) => getAvailableAppointments(data, user), [
+    user,
+  ]);
 
   /** ****************** END 2: filter appointments  ******************** */
   /** ****************** START 3: useQuery  ***************************** */

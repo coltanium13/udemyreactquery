@@ -1,6 +1,10 @@
 import dayjs from 'dayjs';
 
-import type { Appointment, AppointmentDateMap } from '../../../../shared/types';
+import type {
+  Appointment,
+  AppointmentDateMap,
+  User,
+} from '../../../../shared/types';
 
 export function appointmentInPast(appointmentData: Appointment): boolean {
   const now = dayjs();
@@ -12,7 +16,6 @@ export function getAppointmentColor(
   userId: number | undefined,
 ): [string, string] {
   const taken = !!appointmentData.userId;
-
   if (taken || appointmentInPast(appointmentData)) {
     const textColor = 'black';
     const bgColor = appointmentData.userId === userId ? 'white' : 'gray.300';
@@ -34,13 +37,17 @@ export function getAppointmentColor(
 
 export function getAvailableAppointments(
   appointments: AppointmentDateMap,
+  user: User | null,
 ): AppointmentDateMap {
   // clone so as not to mutate argument directly
   const filteredAppointments = { ...appointments };
 
+  // only keep appointments that are open (or taken by the logged-in user) and are not in the past)
   Object.keys(filteredAppointments).forEach((date) => {
     filteredAppointments[date] = filteredAppointments[date].filter(
-      (appointment: Appointment) => !appointment.userId,
+      (appointment: Appointment) =>
+        (!appointment.userId || appointment.userId === user?.id) &&
+        !appointmentInPast(appointment),
     );
   });
 
