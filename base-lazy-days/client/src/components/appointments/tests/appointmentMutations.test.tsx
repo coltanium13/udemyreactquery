@@ -40,6 +40,31 @@ test('Reserve appointment', async () => {
   await waitForElementToBeRemoved(alertToast);
 });
 
+// test('Cancel appointment', async () => {
+//   renderWithQueryClient(
+//     <MemoryRouter>
+//       <Calendar />
+//     </MemoryRouter>,
+//   );
+
+//   // find all cancel buttons
+//   const cancelButtons = await screen.findAllByRole('button', {
+//     name: /cancel appointment/i,
+//   });
+
+//   // click on the first one to cancel
+//   fireEvent.click(cancelButtons[0]);
+
+//   // check for the toast alert
+//   const alertToast = await screen.findByRole('alert');
+//   expect(alertToast).toHaveTextContent('You have removed the appointment!');
+
+//   // close alert to keep state clean and wait for it to disappear
+//   const alertCloseButton = screen.getByRole('button', { name: 'Close' });
+//   alertCloseButton.click();
+//   await waitForElementToBeRemoved(alertToast);
+// });
+
 test('Cancel appointment', async () => {
   renderWithQueryClient(
     <MemoryRouter>
@@ -47,7 +72,7 @@ test('Cancel appointment', async () => {
     </MemoryRouter>,
   );
 
-  // find all cancel buttons
+  // find all the cancel buttons
   const cancelButtons = await screen.findAllByRole('button', {
     name: /cancel appointment/i,
   });
@@ -57,7 +82,7 @@ test('Cancel appointment', async () => {
 
   // check for the toast alert
   const alertToast = await screen.findByRole('alert');
-  expect(alertToast).toHaveTextContent('You have removed the appointment!');
+  expect(alertToast).toHaveTextContent('cancel');
 
   // close alert to keep state clean and wait for it to disappear
   const alertCloseButton = screen.getByRole('button', { name: 'Close' });
