@@ -46,6 +46,15 @@ test('Cancel appointment', async () => {
     </MemoryRouter>,
   );
 
+  // check for the toast alert
+  const alertToastInitial = screen.queryByRole('alert');
+  if (alertToastInitial) {
+    // close alert to keep state clean and wait for it to disappear
+    const alertCloseButton = screen.getByRole('button', { name: 'Close' });
+    alertCloseButton.click();
+    await waitForElementToBeRemoved(alertToastInitial);
+  }
+
   // find all the cancel buttons
   const cancelButtons = await screen.findAllByRole('button', {
     name: /cancel appointment/i,
